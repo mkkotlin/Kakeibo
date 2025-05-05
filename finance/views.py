@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 
 def finance(request):
-    return HttpResponse('fionance' v2)
+    return HttpResponse('fionance v2')
