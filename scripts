@@ -1,0 +1,16 @@
+First
+    Environment
+    python -m venv env              => To create env
+    .\env\Scripts\activate          => to activate env
+
+Second
+    install libraries
+    pip freeze > requirements.txt   => to list out required or using libraries
+    pip install -r requirements.txt
+
+Third
+    django-admin startproject kakeibo_project .  (. ensures to create project in same directory)
+
+
+Running servers
+    python manage.py runserver
