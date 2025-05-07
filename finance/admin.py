@@ -1,5 +1,5 @@
 from django.contrib import admin
-from finance.models import Expense, Income
+from finance.models import Expense, Income, Category
 
 # Register your models here.
 
@@ -15,3 +15,5 @@ class IncomeAdmin(admin.ModelAdmin):
     list_display = ('source','date','notes')
     list_filter = ('source','date')
     search_fields = ('source','notes')
+
+admin.site.register(Category)
