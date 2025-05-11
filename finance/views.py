@@ -83,7 +83,8 @@ def expense_list(request):
                 category = category,
                 # category = Category.objects.get(id = data.get("category")),
                 amount = data.get('amount'),
-                notes = data.get('notes', '')
+                notes = data.get('notes', ''),
+                date = data.get('date')
             )
             return JsonResponse({'message':'Expense created successfully', 'id': expense.id}, status=201)
         except Exception as e:
