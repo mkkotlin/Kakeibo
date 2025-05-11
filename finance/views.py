@@ -140,3 +140,29 @@ def income_list(request):
             return JsonResponse({'message':'income created successfully', 'id': income.id}, status=201)
         except Exception as e:
             return JsonResponse({'error':str(e)}, status=400)
+
+
+@csrf_exempt
+def delete_expense(request,expense_id):
+    print(request,expense_id)
+    if request.method == 'DELETE':
+        try:
+            expense = Expense.objects.get(id=expense_id)
+            expense.delete()
+            return JsonResponse({'message':'Deleted f"id {expense_id}"'},status = 200)
+        except Expense.DoesNotExist:
+            return JsonResponse({'error':'not found'}, status = 404)
+    return JsonResponse({'error':'Invalid request'}, status = 400)
+
+
+@csrf_exempt
+def delete_income(request,income_id):
+    print(request,income_id)
+    if request.method == 'DELETE':
+        try:
+            expense = Income.objects.get(id=income_id)
+            expense.delete()
+            return JsonResponse({'message':'Deleted f"id {income_id}"'},status = 200)
+        except Expense.DoesNotExist:
+            return JsonResponse({'error':'not found'}, status = 404)
+    return JsonResponse({'error':'Invalid request'}, status = 400)
