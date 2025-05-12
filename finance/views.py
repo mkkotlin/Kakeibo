@@ -167,3 +167,42 @@ def delete_income(request,income_id):
         except Expense.DoesNotExist:
             return JsonResponse({'error':'not found'}, status = 404)
     return JsonResponse({'error':'Invalid request'}, status = 400)
+
+@csrf_exempt
+def UpdateExpense(request,pk):
+
+    if request.method == 'PUT':
+        try:
+            expense = Expense.objects.get(id=pk)
+        except Expense.DoesNotExist:
+            return JsonResponse({'error':'Not Found'}, status = 404)
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            expense.category = data.get('category',expense.category)
+            expense.amount = data.get('amount',expense.amount)
+            expense.date = data.get('date',expense.date)
+            expense.notes = data.get('notes',expense.notes)
+            expense.save()
+            return JsonResponse({'message':'Updated'})
+        except json.JSONDecodeError:
+            return JsonResponse({'error':'invalid json'}, status = 400)
+    return JsonResponse({'error':'Invalid Http method'}, status = 405)
+
+@csrf_exempt
+def UpdateIncome(request,pk):
+    if request.method == 'PUT':
+        try:
+            income = Income.objects.get(id = pk)
+        except Income.DoesNotExist:
+            return JsonResponse({'error':'Not Found'}, status = 404)
+        try:
+            data = json.loads(request.body)
+            income.source = data.get('source',income.source)
+            income.amount = data.get('amount', income.amount)
+            income.date = data.get('date', income.date)
+            income.notes = data.get('notes',income.notes)
+            income.save()
+            return JsonResponse({'message':'Updated'})
+        except json.JSONDecodeError:
+            return JsonResponse({'error':'Invalid json'}, status = 400)
+    return JsonResponse({'error':'Invalid Http methos'}, status = 405)
